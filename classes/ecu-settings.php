@@ -1,11 +1,11 @@
 <?php
 
-if ( ! class_exists( 'WPPS_Settings' ) ) {
+if ( ! class_exists( 'ECU_Settings' ) ) {
 
 	/**
 	 * Handles plugin settings and user profile meta fields
 	 */
-	class WPPS_Settings extends WPPS_Module {
+	class ECU_Settings extends WPPS_Module {
 		protected $settings;
 		protected static $default_settings;
 		protected static $readable_properties  = array( 'settings' );
