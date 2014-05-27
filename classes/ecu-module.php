@@ -1,11 +1,11 @@
 <?php
 
-if ( ! class_exists( 'WPPS_Module' ) ) {
+if ( ! class_exists( 'ECU_Module' ) ) {
 
 	/**
 	 * Abstract class to define/implement base methods for all module classes
 	 */
-	abstract class WPPS_Module {
+	abstract class ECU_Module {
 		private static $instances = array();
 
 
