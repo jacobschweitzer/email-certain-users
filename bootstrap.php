@@ -12,22 +12,19 @@ if ( ! defined( 'ABSPATH' ) ) {
 	die( 'Access denied.' );
 }
 
-define( 'WPPS_NAME',                 'WordPress Plugin Skeleton' );
+define( 'WPPS_NAME',                 'Email Certain Users' );
 /*
  * load main class
  * The main program needs to be in a separate file that only gets loaded if the plugin requirements are met. Otherwise older PHP installations could crash when trying to parse it.
  */
-	require_once( __DIR__ . '/classes/wpps-module.php' );
-	require_once( __DIR__ . '/classes/wordpress-plugin-skeleton.php' );
-	require_once( __DIR__ . '/includes/admin-notice-helper/admin-notice-helper.php' );
-	require_once( __DIR__ . '/classes/wpps-custom-post-type.php' );
-	require_once( __DIR__ . '/classes/wpps-cpt-example.php' );
-	require_once( __DIR__ . '/classes/wpps-settings.php' );
-	require_once( __DIR__ . '/classes/wpps-cron.php' );
-	require_once( __DIR__ . '/classes/wpps-instance-class.php' );
+	require_once( __DIR__ . '/classes/ecu-module.php' );
+	require_once( __DIR__ . '/classes/email-certain-users.php' );
+	require_once( __DIR__ . '/classes/ecu-settings.php' );
+	require_once( __DIR__ . '/classes/ecu-cron.php' );
+	require_once( __DIR__ . '/classes/ecu-instance-class.php' );
 
-	if ( class_exists( 'WordPress_Plugin_Skeleton' ) ) {
-		$GLOBALS['wpps'] = WordPress_Plugin_Skeleton::get_instance();
-		register_activation_hook(   __FILE__, array( $GLOBALS['wpps'], 'activate' ) );
-		register_deactivation_hook( __FILE__, array( $GLOBALS['wpps'], 'deactivate' ) );
+	if ( class_exists( 'Email_Certain_Users' ) ) {
+		$GLOBALS['ecu'] = Email_Certain_Users::get_instance();
+		register_activation_hook(   __FILE__, array( $GLOBALS['ecu'], 'activate' ) );
+		register_deactivation_hook( __FILE__, array( $GLOBALS['ecu'], 'deactivate' ) );
 	}
