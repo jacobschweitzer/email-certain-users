@@ -1,17 +1,12 @@
 <?php
 /*
-Plugin Name: WordPress Plugin Skeleton
-Plugin URI:  https://github.com/iandunn/WordPress-Plugin-Skeleton
+Plugin Name: Email Certain Users
+Plugin URI:  http://ijas.me/email-certain-users
 Description: The skeleton for an object-oriented/MVC WordPress plugin
-Version:     0.4a
-Author:      Ian Dunn
-Author URI:  http://iandunn.name
+Version:     1.0
+Author:      Jacob Schweitzer
+Author URI:  http://ijas.me/
 */
-
-/*
- * This plugin was built on top of WordPress-Plugin-Skeleton by Ian Dunn.
- * See https://github.com/iandunn/WordPress-Plugin-Skeleton for details.
- */
 
 if ( ! defined( 'ABSPATH' ) ) {
 	die( 'Access denied.' );
