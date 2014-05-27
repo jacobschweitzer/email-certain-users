@@ -55,10 +55,6 @@ if ( ! class_exists( 'ECU_Settings' ) ) {
 		 */
 		public function register_hook_callbacks() {
 			add_action( 'admin_menu',               __CLASS__ . '::register_settings_pages' );
-			add_action( 'show_user_profile',        __CLASS__ . '::add_user_fields' );
-			add_action( 'edit_user_profile',        __CLASS__ . '::add_user_fields' );
-			add_action( 'personal_options_update',  __CLASS__ . '::save_user_fields' );
-			add_action( 'edit_user_profile_update', __CLASS__ . '::save_user_fields' );
 
 			add_action( 'init',                     array( $this, 'init' ) );
 			add_action( 'admin_init',               array( $this, 'register_settings' ) );
@@ -292,7 +288,7 @@ if ( ! class_exists( 'ECU_Settings' ) ) {
 					break;
 			}
 
-			echo self::render_template( 'wpps-settings/page-settings-fields.php', array( 'settings' => $this->settings, 'field' => $field ), 'always' );
+			echo self::render_template( 'ecu-settings/page-settings-fields.php', array( 'settings' => $this->settings, 'field' => $field ), 'always' );
 		}
 
 		/**
@@ -315,10 +311,10 @@ if ( ! class_exists( 'ECU_Settings' ) ) {
 			 * Basic Settings
 			 */
 
-			if ( strcmp( $new_settings['basic']['field-example1'], 'valid data' ) !== 0 ) {
+			//if ( strcmp( $new_settings['basic']['field-example1'], 'valid data' ) !== 0 ) {
 				//add_notice( 'Example 1 must equal "valid data"', 'error' );
-				$new_settings['basic']['field-example1'] = self::$default_settings['basic']['field-example1'];
-			}
+				//$new_settings['basic']['field-example1'] = self::$default_settings['basic']['field-example1'];
+			//}
 
 
 			/*
@@ -332,60 +328,5 @@ if ( ! class_exists( 'ECU_Settings' ) ) {
 		}
 
 
-		/*
-		 * User Settings
-		 */
-
-		/**
-		 * Adds extra option fields to a user's profile
-		 *
-		 * @mvc Controller
-		 *
-		 * @param object
-		 */
-		public static function add_user_fields( $user ) {
-			echo self::render_template( 'wpps-settings/user-fields.php', array( 'user' => $user ) );
-		}
-
-		/**
-		 * Validates and saves the values of extra user fields to the database
-		 *
-		 * @mvc Controller
-		 *
-		 * @param int $user_id
-		 */
-		public static function save_user_fields( $user_id ) {
-			$user_fields = self::validate_user_fields( $user_id, $_POST );
-
-			update_user_meta( $user_id, 'ecu_user-example-field1', $user_fields[ 'ecu_user-example-field1' ] );
-			update_user_meta( $user_id, 'ecu_user-example-field2', $user_fields[ 'ecu_user-example-field2' ] );
-		}
-
-		/**
-		 * Validates submitted user field values before they get saved to the database
-		 *
-		 * @mvc Model
-		 *
-		 * @param int   $user_id
-		 * @param array $user_fields
-		 * @return array
-		 */
-		public static function validate_user_fields( $user_id, $user_fields ) {
-			if ( $user_fields[ 'ecu_user-example-field1' ] == false ) {
-				$user_fields[ 'ecu_user-example-field1' ] = true;
-				add_notice( 'Example Field 1 should be true', 'error' );
-			}
-
-			if ( ! current_user_can( 'manage_options' ) ) {
-				$current_field2 = get_user_meta( $user_id, 'ecu_user-example-field2', true );
-
-				if ( $current_field2 != $user_fields[ 'ecu_user-example-field2' ] ) {
-					$user_fields[ 'ecu_user-example-field2' ] = $current_field2;
-					add_notice( 'Only administrators can change Example Field 2.', 'error' );
-				}
-			}
-
-			return $user_fields;
-		}
 	} // end WPPS_Settings
 }
