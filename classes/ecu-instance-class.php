@@ -1,11 +1,11 @@
 <?php
 
-if ( ! class_exists( 'WPPS_Instance_Class' ) ) {
+if ( ! class_exists( 'ECU_Instance_Class' ) ) {
 
 	/**
 	 * Example of an instance class
 	 */
-	class WPPS_Instance_Class {
+	class ECU_Instance_Class {
 		protected $foo, $bar;
 		protected $readable_protected_vars, $writeable_protected_vars;
 		const FOO = 'foo';
