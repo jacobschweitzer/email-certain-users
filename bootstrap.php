@@ -2,7 +2,7 @@
 /*
 Plugin Name: Email Certain Users
 Plugin URI:  http://ijas.me/email-certain-users
-Description: The skeleton for an object-oriented/MVC WordPress plugin
+Description: Email certain users from the admin section. 
 Version:     1.0
 Author:      Jacob Schweitzer
 Author URI:  http://ijas.me/
