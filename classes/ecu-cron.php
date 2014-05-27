@@ -7,7 +7,7 @@ if ( ! class_exists( 'ECU_Cron' ) ) {
 	 *
 	 * Note: Because WP-Cron only fires hooks when HTTP requests are made, make sure that an external monitoring service pings the site regularly to ensure hooks are fired frequently
 	 */
-	class ECU_Cron extends WPPS_Module {
+	class ECU_Cron extends ECU_Module {
 		protected static $readable_properties  = array();
 		protected static $writeable_properties = array();
 
