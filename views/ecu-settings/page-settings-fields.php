@@ -1,30 +1,12 @@
 <?php
-/*
- * Basic Section
- */
-?>
+if ( 'ecu_email_subject' == $field['label_for'] ) { ?>
 
-<?php if ( 'ecu_field-example1' == $field['label_for'] ) : ?>
+	<input id="<?php esc_attr_e( 'ecu_settings[email_subject]' ); ?>" name="<?php esc_attr_e( 'ecu_settings[email_subject]' ); ?>" class="regular-text" value="<?php esc_attr_e( $settings['email_subject'] ); ?>" />
 
-	<input id="<?php esc_attr_e( 'ecu_settings[basic][field-example1]' ); ?>" name="<?php esc_attr_e( 'ecu_settings[basic][field-example1]' ); ?>" class="regular-text" value="<?php esc_attr_e( $settings['basic']['field-example1'] ); ?>" />
-	<span class="example"> Example value</span>
-
-<?php endif; ?>
+<?php } ?>
 
 
-<?php
-/*
- * Advanced Section
- */
-?>
+<?php if ( 'ecu_email_message' == $field['label_for'] ) { ?>
 
-<?php if ( 'ecu_field-example2' == $field['label_for'] ) : ?>
-
-	<textarea id="<?php esc_attr_e( 'ecu_settings[advanced][field-example2]' ); ?>" name="<?php esc_attr_e( 'ecu_settings[advanced][field-example2]' ); ?>" class="large-text"><?php echo esc_textarea( $settings['advanced']['field-example2'] ); ?></textarea>
-	<p class="description">This is an example of a longer explanation.</p>
-
-<?php elseif ( 'ecu_field-example3' == $field['label_for'] ) : ?>
-
-	<p>Another example</p>
-
-<?php endif; ?>
+	<textarea id="<?php esc_attr_e( 'ecu_settings[email_message]' ); ?>" name="<?php esc_attr_e( 'ecu_settings[email_message]' ); ?>" class="large-text"><?php echo esc_textarea( $settings['email_message'] ); ?></textarea>
+<?php } ?>

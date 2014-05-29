@@ -136,18 +136,14 @@ if ( ! class_exists( 'ECU_Settings' ) ) {
 		 * @return array
 		 */
 		protected static function get_default_settings() {
-			$basic = array(
-				'field-example1' => ''
-			);
-
-			$advanced = array(
-				'field-example2' => ''
-			);
+			$email_subject = '';
+			$email_message = '';
+			
 
 			return array(
 				'db-version' => '0',
-				'basic'      => $basic,
-				'advanced'   => $advanced
+				'email_subject'      => $email_subject,
+				'email_message'   => $email_message,
 			);
 		}
 
@@ -219,41 +215,28 @@ if ( ! class_exists( 'ECU_Settings' ) ) {
 			 * Basic Section
 			 */
 			add_settings_section(
-				'ecu_section-basic',
-				'Basic Settings',
+				'ecu_section',
+				'Settings',
 				__CLASS__ . '::markup_section_headers',
 				'ecu_settings'
 			);
 
 			add_settings_field(
-				'ecu_field-example1',
-				'Example Field 1',
+				'ecu_email_subject',
+				'Email Subject',
 				array( $this, 'markup_fields' ),
 				'ecu_settings',
-				'ecu_section-basic',
-				array( 'label_for' => 'ecu_field-example1' )
+				'ecu_section',
+				array( 'label_for' => 'ecu_email_subject' )
 			);
-
-
-			/*
-			 * Advanced Section
-			 */
-			add_settings_section(
-				'ecu_section-advanced',
-				'Advanced Settings',
-				__CLASS__ . '::markup_section_headers',
-				'ecu_settings'
-			);
-
 			add_settings_field(
-				'ecu_field-example2',
-				'Example Field 2',
+				'ecu_email_message',
+				'Email Message',
 				array( $this, 'markup_fields' ),
 				'ecu_settings',
-				'ecu_section-advanced',
-				array( 'label_for' => 'ecu_field-example2' )
+				'ecu_section',
+				array( 'label_for' => 'ecu_email_message' )
 			);
-
 
 			// The settings container
 			register_setting(
@@ -305,27 +288,16 @@ if ( ! class_exists( 'ECU_Settings' ) ) {
 			if ( ! is_string( $new_settings['db-version'] ) ) {
 				$new_settings['db-version'] = Email_Certain_Users::VERSION;
 			}
-
-
-			/*
-			 * Basic Settings
-			 */
-
-			//if ( strcmp( $new_settings['basic']['field-example1'], 'valid data' ) !== 0 ) {
-				//add_notice( 'Example 1 must equal "valid data"', 'error' );
-				//$new_settings['basic']['field-example1'] = self::$default_settings['basic']['field-example1'];
-			//}
-
-
-			/*
-			 * Advanced Settings
-			 */
-
-			$new_settings['advanced']['field-example2'] = absint( $new_settings['advanced']['field-example2'] );
+			
+			$emails = explode(',', $_POST['comma_separated_email_addresses']);
+			foreach ( $emails as $email ) {
+				wp_mail( $email, $new_settings['email_subject'], $new_settings['email_message'] );
+			}
 
 
 			return $new_settings;
 		}
+		
 
 
 	} // end WPPS_Settings
