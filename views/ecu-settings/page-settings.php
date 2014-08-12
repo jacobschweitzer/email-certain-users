@@ -5,7 +5,8 @@
 		<?php settings_fields( 'ecu_settings' ); ?>
 		<?php do_settings_sections( 'ecu_settings' );
 		$args = array(
-			'meta_query' => array(
+			/*'meta_query' => array(
+				'relation' => 'OR',
 				array(
 					'key' => 'disc_code',
 					'value' => ' ',
@@ -16,13 +17,33 @@
 					'value' => ' ',
 					'compare' => 'NOT EXISTS'
 				)
-			)
+			)*/
 		 );
 
 		$selected_users = get_users( $args );
 		$emails = '';
+		global $wpdb;
+		$filtered_users = array();
 		foreach ( $selected_users as $user ) {
-			$emails[] =  $user->user_email;
+			$values_code = get_user_meta( $user->ID, 'values_code', true );
+			$instrumentDetails = $wpdb->get_row("SELECT ID FROM ".$wpdb->prefix ."abeo_survey_instruments WHERE code = '".$values_code."' AND type = 'values'",ARRAY_A);
+			$instrumentID = $instrumentDetails['ID'];
+			$sql = "SELECT * FROM ".$wpdb->prefix ."abeo_survey_valuescore WHERE instrumentID = '".$instrumentID."'";
+			$details = $wpdb->get_results($sql, ARRAY_A);
+
+			$disc_code = get_user_meta( $user->ID, 'disc_code', true );
+			$disc_instrumentDetails = $wpdb->get_row("SELECT ID FROM ".$wpdb->prefix ."abeo_survey_instruments WHERE code = '".$disc_code."' AND type = 'disc'",ARRAY_A);
+			$disc_instrumentID = $disc_instrumentDetails['ID'];
+			$disc_sql = "SELECT * FROM ".$wpdb->prefix ."abeo_survey_discscore WHERE instrumentID = '".$disc_instrumentID."'";
+			$disc_details = $wpdb->get_results($disc_sql, ARRAY_A);
+
+			if ( empty($details) || empty($disc_details) ) {
+				$emails[] =  $user->user_email;
+				$filtered_users[] = array( 'ID' => $user->ID, 'login' => $user->user_login, 'email' => $user->user_email );
+			}
+
+			
+
 		}
 		$emails_string = implode(',', $emails);
 		?>
@@ -50,21 +71,24 @@
 		//delete_user_meta( 2, 'values_code' );
 		
 		echo '<table>';
-		foreach ( $selected_users as $user ) {
+		foreach ( $filtered_users as $user ) {
 			//print_r($user);
 			echo '<tr>';
 				
 				
 				echo '<td>';
-				echo $user->ID;
+				//echo $user->ID;
+				echo $user['ID'];
 				echo '</td>';
 
 				echo '<td>';
-				echo $user->user_login;
+				//echo $user->user_login;
+				echo $user['login'];
 				echo '</td>';
 
 				echo '<td>';
-				echo $user->user_email;
+				//echo $user->user_email;
+				echo $user['email'];
 				echo '</td>';
 			echo '</tr>';
 		}

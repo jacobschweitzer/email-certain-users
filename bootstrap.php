@@ -1,6 +1,6 @@
 <?php
 /*
-Plugin Name: Email Certain Users
+Plugin Name: Abeo Survey Reminder
 Plugin URI:  http://ijas.me/email-certain-users
 Description: Email certain users from the admin section. 
 Version:     1.0
@@ -12,7 +12,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	die( 'Access denied.' );
 }
 
-define( 'WPPS_NAME',                 'Email Certain Users' );
+define( 'WPPS_NAME',                 'Abeo Survey Reminder' );
 /*
  * load main class
  * The main program needs to be in a separate file that only gets loaded if the plugin requirements are met. Otherwise older PHP installations could crash when trying to parse it.
