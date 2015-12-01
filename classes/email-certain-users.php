@@ -31,7 +31,6 @@ if ( ! class_exists( 'Email_Certain_Users' ) ) {
 
 			$this->modules = array(
 				'ECU_Settings'    => ECU_Settings::get_instance(),
-				//'WPPS_Cron'        => WPPS_Cron::get_instance()
 			);
 		}
 
@@ -46,27 +45,6 @@ if ( ! class_exists( 'Email_Certain_Users' ) ) {
 		 * @mvc Controller
 		 */
 		public static function load_resources() {
-			wp_register_script(
-				self::PREFIX . 'wordpress-plugin-skeleton',
-				plugins_url( 'javascript/wordpress-plugin-skeleton.js', dirname( __FILE__ ) ),
-				array( 'jquery' ),
-				self::VERSION,
-				true
-			);
-
-			wp_register_style(
-				self::PREFIX . 'admin',
-				plugins_url( 'css/admin.css', dirname( __FILE__ ) ),
-				array(),
-				self::VERSION,
-				'all'
-			);
-
-			if ( is_admin() ) {
-				wp_enqueue_style( self::PREFIX . 'admin' );
-			} else {
-				wp_enqueue_script( self::PREFIX . 'wordpress-plugin-skeleton' );
-			}
 		}
 
 		/**
@@ -165,8 +143,6 @@ if ( ! class_exists( 'Email_Certain_Users' ) ) {
 		 */
 		public function register_hook_callbacks() {
 			add_action( 'wpmu_new_blog',         __CLASS__ . '::activate_new_site' );
-			//add_action( 'wp_enqueue_scripts',    __CLASS__ . '::load_resources' );
-			//add_action( 'admin_enqueue_scripts', __CLASS__ . '::load_resources' );
 
 			add_action( 'init',                  array( $this, 'init' ) );
 			add_action( 'init',                  array( $this, 'upgrade' ), 11 );

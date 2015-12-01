@@ -12,7 +12,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	die( 'Access denied.' );
 }
 
-define( 'WPPS_NAME',                 'Abeo Survey Reminder' );
+define( 'WPPS_NAME',                 'Email Certain Users' );
 /*
  * load main class
  * The main program needs to be in a separate file that only gets loaded if the plugin requirements are met. Otherwise older PHP installations could crash when trying to parse it.
@@ -20,8 +20,6 @@ define( 'WPPS_NAME',                 'Abeo Survey Reminder' );
 	require_once( __DIR__ . '/classes/ecu-module.php' );
 	require_once( __DIR__ . '/classes/email-certain-users.php' );
 	require_once( __DIR__ . '/classes/ecu-settings.php' );
-	require_once( __DIR__ . '/classes/ecu-cron.php' );
-	require_once( __DIR__ . '/classes/ecu-instance-class.php' );
 
 	if ( class_exists( 'Email_Certain_Users' ) ) {
 		$GLOBALS['ecu'] = Email_Certain_Users::get_instance();

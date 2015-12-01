@@ -4,21 +4,7 @@
 	<form method="post" action="options.php">
 		<?php settings_fields( 'ecu_settings' ); ?>
 		<?php do_settings_sections( 'ecu_settings' );
-		$args = array(
-			/*'meta_query' => array(
-				'relation' => 'OR',
-				array(
-					'key' => 'disc_code',
-					'value' => ' ',
-					'compare' => 'NOT EXISTS'
-				),
-				array(
-					'key' => 'values_code',
-					'value' => ' ',
-					'compare' => 'NOT EXISTS'
-				)
-			)*/
-		 );
+		$args = array();
 
 		$selected_users = get_users( $args );
 		$emails = '';
@@ -41,9 +27,6 @@
 				$emails[] =  $user->user_email;
 				$filtered_users[] = array( 'ID' => $user->ID, 'login' => $user->user_login, 'email' => $user->user_email );
 			}
-
-			
-
 		}
 		$emails_string = implode(',', $emails);
 		?>
@@ -64,30 +47,19 @@
 			<input type="submit" name="submit" id="submit" class="button-primary" value="<?php esc_attr_e( 'Send Emails' ); ?>" />
 		</p>
 	</form>
-	<?php 
-		//update_user_meta( 2, 'disc_code', 'asdfads' );
-		//update_user_meta( 2, 'values_code', 'asdfads' );
-		//delete_user_meta( 2, 'disc_code' );
-		//delete_user_meta( 2, 'values_code' );
-		
+	<?php
 		echo '<table>';
 		foreach ( $filtered_users as $user ) {
-			//print_r($user);
 			echo '<tr>';
-				
-				
 				echo '<td>';
-				//echo $user->ID;
 				echo $user['ID'];
 				echo '</td>';
 
 				echo '<td>';
-				//echo $user->user_login;
 				echo $user['login'];
 				echo '</td>';
 
 				echo '<td>';
-				//echo $user->user_email;
 				echo $user['email'];
 				echo '</td>';
 			echo '</tr>';
